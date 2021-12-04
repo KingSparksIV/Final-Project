@@ -1,0 +1,100 @@
+package com.company;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayList<String> product = new ArrayList<String>();
+        ArrayList<Double> cost = new ArrayList<Double>();
+        product.add("Red-Hot Spicy Doritos");
+        cost.add(2.99);
+        product.add("Cool Ranch Doritos");
+        cost.add(2.99);
+        product.add("Coke");
+        cost.add(0.99);
+        product.add("Diet Coke");
+        cost.add(0.99);
+        product.add("Pepsi");
+        cost.add(0.99);
+        product.add("Five Hour Energy");
+        cost.add(3.99);
+        product.add("Sunflower Seeds");
+        cost.add(0.99);
+        product.add("Peanuts");
+        cost.add(0.99);
+        product.add("Mac Book Charger");
+        cost.add(120.00);
+        product.add("Dell Charger");
+        cost.add(50.00);
+
+        System.out.println("       WELCOME TO COBIS CONVENIENCE STORE!");
+        Scanner order = new Scanner(System.in);
+
+        ArrayList<String> Order = new ArrayList<String>();
+        ArrayList<Integer> Quant = new ArrayList<Integer>();
+        String cusInput;
+        StringBuilder output = new StringBuilder();
+        double orderTotal;
+        double grossSales = 0;
+
+        System.out.println("Please enter your name:");
+
+        while (!(cusInput = order.nextLine()).equalsIgnoreCase("closed")) {
+            output.append(cusInput);
+            orderTotal = 0;
+            System.out.println("The products we carry are listed below: ");
+
+
+        System.out.println(
+                "\n0 :  Red-Hot Spicy Doritos" +
+                "\n1 :  Cool ranch Doritos" +
+                "\n2 :  Coke" +
+                "\n3 :  Diet Coke" +
+                "\n4 :  Pepsi" +
+                "\n5 :  Five Hour Energy" +
+                "\n6 :  Sunflower seeds" +
+                "\n7 :  Peanuts" +
+                "\n8 :  Mac Book Charger" +
+                "\n9 : Dell Charger");
+
+
+            do {
+                System.out.println("Enter the item number that corresponds with the product you would like to purchase (enter 10 when finished): ");
+
+                cusInput = order.nextLine();
+                for (String prod : product) {
+                    if (Integer.parseInt(cusInput) == (product.indexOf(prod))) {
+                        product.get(product.indexOf(prod));
+                        orderTotal += cost.get(product.indexOf(prod));
+                        String itemname = product.get(Integer.parseInt(cusInput));
+                        output.append("\n").append(itemname);
+                        if (!Order.contains(cusInput)) {
+                            Order.add(cusInput);
+                            Quant.add(1);
+                        } else {
+                            int indexnum = Order.indexOf(cusInput);
+                            Quant.set(indexnum, Quant.get(indexnum) + 1);
+                        }
+                    }
+                }
+            } while ((!cusInput.equalsIgnoreCase("10")));
+            output.append(" \n \t\t\t").append(orderTotal).append("\n");
+            grossSales += orderTotal;
+
+            System.out.println("Enter the name of the next customer (Enter closed if store is closed): ");
+        }
+        System.out.println("\n" + "Customer Receipts for Today:  \n  " + output);
+        System.out.print("Today's Gross Sales: $");
+        System.out.printf("%.2f", grossSales);
+        System.out.println("  ");
+        System.out.println("  ");
+        System.out.println("Total Sales Overview for Today: ");
+
+        for (String inventory : Order)
+        {
+            System.out.println("Item #" + inventory + ": " + Quant.get(Order.indexOf(inventory)));
+        }
+    }
+}
